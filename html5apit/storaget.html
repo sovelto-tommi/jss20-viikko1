@@ -54,17 +54,22 @@
             {nimi: 'Nikkis', titteli: 'pm'}
         ];
         sessionStorage.setItem('henkilot', JSON.stringify(henkilot));
+
         function hae() {
             const avain = document.getElementById('haeavain').value;
             const haettuarvo = localStorage.getItem(avain);
             document.getElementById('haearvo').innerHTML = haettuarvo || '<i>ei arvoa</i>';
         }
+
         function talleta() {
             const avain = document.getElementById('talletaavain').value;
             const arvo = document.getElementById('talletaarvo').value;
             localStorage.setItem(avain, arvo);
+            // TAI
+            // localStorage[avain] = arvo;
             alert("Talletettu")
         }
+
         function talletaperaan() {
             const avain = document.getElementById('peraanavain').value;
             const arvo = document.getElementById('peraanarvo').value;
