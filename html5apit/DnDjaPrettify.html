@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prettyprint</title>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
+    <!--<link rel="stylesheet" href="css/sonsofobsidian.css"/>-->
+    <style>
+        pre.prettyprint {
+            width: 90%;
+            overflow-x: auto;  /* scroll bar liian pitkille koodiriveille */
+            padding: 0.2em;
+        }
+    </style>
+</head>
+<body ondrop="drop(event)" ondragover="allowDrop(event)">
+<h1>Lisää tiedot alle</h1>
+<div id="koodit">
+    <h3>Esimerkki.js</h3>
+    <!-- Esimerkkikoodi, jotta sivu näyttää jo heti hyvältä -->
+    <pre class="prettyprint" id="koodilohko">
+// Luodaan noppa, jota voi heittää
+const noppa = {
+    // Antaa arvotun numeron, oletuksena 6-sivuinen noppa
+    heita : (sivuja = 6) => {
+        return Math.floor(Math.random() * sivuja) + 1;
+    }
+};
+module.exports = noppa;            
+</pre>
+</div>
+<script>
+    var koodidiv = document.getElementById("koodit");
+
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var files = ev.dataTransfer.files;
+        // Poistetaan vanhat koodit
+        while (koodidiv.firstChild) {
+            koodidiv.removeChild(koodidiv.firstChild);
+        }
+        // Lisätään KAIKKI dropatut tiedostot, yksi kerrallaan
+        for (var i = 0; i < files.length; i++) {
+            kasitteletiedosto(files[i]);
+        }
+    }
+
+    function kasitteletiedosto(tiedosto) {
+        var tiedoston_nimi = tiedosto.name;
+        var lukija = new FileReader();
+        lukija.onload = function (e) {
+            var tiedoston_teksti = lukija.result;
+            lisaakoodi(tiedoston_teksti, tiedoston_nimi);
+        }
+        lukija.readAsText(tiedosto, "utf-8");
+    }
+
+    function lisaakoodi(teksti, nimi) {
+        // Luodaan ja lisätään otsikko (tiedoston nimi) ja tyhjä pre-elementti
+        // ja otsikko tiedoston nimellä sivulle
+        var elementti = luo_pre_elementti_otsikoineen(nimi);
+        // lisätään pre-elementille koodi tekstiksi
+        elementti.innerText = teksti;
+        // pyydä nätistäjää nätistämään taas
+        PR.prettyPrint();
+    }
+
+    function luo_pre_elementti_otsikoineen(nimi) {
+        // Ensin otsikko, missä tiedoston nimi
+        var otsikko = document.createElement("h3");
+        otsikko.innerText = nimi;
+        // Sitten varsinainen <pre> elementti, tässä funktiossa vain tyhjänä
+        var preelem = document.createElement("pre");
+        preelem.className = "prettyprint";
+        // Lisätään otsikko ja pre-elementti koodi-diviin
+        koodidiv.appendChild(otsikko);
+        koodidiv.appendChild(preelem);
+        // Palautetaan luotu pre-elementti
+        return preelem;
+    }
+
+</script>
+
+</body>
+</html>

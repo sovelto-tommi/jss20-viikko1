@@ -60,7 +60,7 @@
         }
         function lahetaViesti() {
             const teksti = viestikentta.value;
-            if (teksti) {
+            if (conn && teksti) {
                 conn.send(teksti);
                 ulos.value += `LÄHETETTY: ${teksti}\n`
             }
