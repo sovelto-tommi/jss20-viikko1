@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Websocket-harjoitus</title>
+    <style>
+        #toimintodiv, #tulosdiv {
+            min-width: 16em;
+            float: left;
+            width: 45%;
+        }
+        textarea {
+            width: 90%;
+            height: 8em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Websocket-harjoitus</h1>
+    <div id="toimintodiv">
+    <div>
+        <p>Yhteyden avaaminen ja sulkeminen:</p>
+        <p>
+            <button type="button" class="auki" id="avaabtn">Avaa</button>
+            <button type="button" id="suljebtn" class="sulki">Sulje</button>
+        </p>
+    </div>
+    <div>
+        <p>Viestin lähetys</p>
+        <p><input type="text" id="viestikentta"/> <span>&nbsp;</span>
+            <button type="button" id="viestibtn">Lähetä</button>
+        </p>
+    </div>
+    </div>
+    <div id="tulosdiv">
+        <p>Loki</p>
+        <textarea id="ulos"></textarea>
+    </div>
+    <script>
+    </script>
+</body>
+</html>
