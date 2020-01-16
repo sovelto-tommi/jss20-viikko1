@@ -59,18 +59,29 @@
             }
         }
         function lahetaViesti() {
-
+            const teksti = viestikentta.value;
+            if (teksti) {
+                conn.send(teksti);
+                ulos.value += `LÄHETETTY: ${teksti}\n`
+            }
+        }
+        function viestiVastaanotettu(event) {
+            console.log("Viesti saatu", event);
+            ulos.value += `SAATU: ${event.data}\n`            
         }
         function yhteysAuki() {
             ulos.value += `\nYhteys auki\n`
             avaabtn.disabled = true;
             suljebtn.disabled = false;
+            viestibtn.disabled = false;
+            conn.onmessage = viestiVastaanotettu;
         }
 
         function yhteysSuljettu() {
             ulos.value += `\nYhteys suljettu\n`
             avaabtn.disabled = false;
             suljebtn.disabled = true;
+            viestibtn.disabled = true;
         }
         function sidoTapahtumat() {
             avaabtn.onclick = avaaYhteys;
