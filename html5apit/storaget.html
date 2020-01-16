@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storaget</title>
+</head>
+<body>
+    <h1>Local storage</h1>
+    <div>
+        <h2>Hae</h2>
+        <input id="haeavain" />
+        <button type="button" onclick="hae()">Hae</button>
+        <span id="haearvo" style="font-weight: bold;"></span>
+    </div>
+    <hr />
+    <div>
+        <h2>Talleta</h2>
+        <p>
+            <label for="talletaavain">Avain:</label>
+            <input id="talletaavain">
+        </p>
+        <p>
+            <label for="talletaarvo">Arvo:</label>
+            <input id="talletaarvo">
+        </p>
+        <p><button type="button" onclick="talleta()">Talleta</button></p>
+    </div>
+    <div>
+        <h2>Talleta perään</h2>
+        <p>
+            <label for="peraanavain">Avain:</label>
+            <input id="peraanavain">
+        </p>
+        <p>
+            <label for="peraanarvo">Arvo:</label>
+            <input id="peraanarvo">
+        </p>
+        <p><button type="button" onclick="talletaperaan()">Talleta perään</button></p>
+    </div>
+    <div>
+        <h2>Kaikki</h2>
+        <p>
+            <input type="radio" name="kumpi" checked="checked" id="sessionradio"> <label for="sessionradio">Session storage</label> <br/>
+            <input type="radio" name="kumpi" id="localradio"> <label for="localradio">Local storage</label> <br/>
+        </p>
+        <p><button type="button" onclick="haekaikki()">Hae kaikki</button></p>
+        <div id="kaikkidiv"></div>
+    </div>
+    <script>
+        var henkilot = [
+            {nimi: 'Tommi', titteli: 'ope'},
+            {nimi: 'Toni', titteli: 'ope'},
+            {nimi: 'Nikkis', titteli: 'pm'}
+        ];
+        sessionStorage.setItem('henkilot', JSON.stringify(henkilot));
+        function hae() {
+            const avain = document.getElementById('haeavain').value;
+            const haettuarvo = localStorage.getItem(avain);
+            document.getElementById('haearvo').innerHTML = haettuarvo || '<i>ei arvoa</i>';
+        }
+        function talleta() {
+            const avain = document.getElementById('talletaavain').value;
+            const arvo = document.getElementById('talletaarvo').value;
+            localStorage.setItem(avain, arvo);
+            alert("Talletettu")
+        }
+        function talletaperaan() {
+            const avain = document.getElementById('peraanavain').value;
+            const arvo = document.getElementById('peraanarvo').value;
+            const vanhaarvo = localStorage.getItem(avain) || '';
+            localStorage.setItem(avain, vanhaarvo + arvo);
+            alert("Talletettu")
+        }
+        function haekaikki() {
+            const ulos = document.getElementById('kaikkidiv');
+            const storage = document.getElementById('sessionradio').checked ? sessionStorage : localStorage;
+            while(ulos.lastChild) {
+                ulos.removeChild(ulos.lastChild);
+            }
+            for(let i = 0 ; i < storage.length ; ++i) {
+                const key = storage.key(i);
+                ulos.innerHTML += `<p>${key}: ${storage.getItem(key)}`
+            }
+        }
+    </script>
+</body>
+
+</html>
