@@ -38,6 +38,48 @@
         <textarea id="ulos"></textarea>
     </div>
     <script>
+        let conn;
+        const avaabtn = document.getElementById('avaabtn');
+        const suljebtn = document.getElementById('suljebtn');
+        const viestikentta = document.getElementById('viestikentta');
+        const viestibtn = document.getElementById('viestibtn');
+        const ulos = document.getElementById('ulos');
+        sidoTapahtumat();
+        function avaaYhteys() {
+            conn = new WebSocket("ws://echo.websocket.org")
+            conn.onopen = yhteysAuki;
+        }
+        function suljeYhteys() {
+            if (conn) {
+                conn.onclose = () => {
+                    yhteysSuljettu();
+                    conn = null;
+                }
+                conn.close();
+            }
+        }
+        function lahetaViesti() {
+
+        }
+        function yhteysAuki() {
+            ulos.value += `\nYhteys auki\n`
+            avaabtn.disabled = true;
+            suljebtn.disabled = false;
+        }
+
+        function yhteysSuljettu() {
+            ulos.value += `\nYhteys suljettu\n`
+            avaabtn.disabled = false;
+            suljebtn.disabled = true;
+        }
+        function sidoTapahtumat() {
+            avaabtn.onclick = avaaYhteys;
+            suljebtn.onclick = suljeYhteys;
+            viestibtn.onclick = lahetaViesti;
+            suljebtn.disabled = true;
+            viestibtn.disabled = true;
+        }
     </script>
+
 </body>
 </html>
