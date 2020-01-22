@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henkilöt</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+    <h1>Henkilösovellus</h1>
+    <ul id="lista"></ul>
+    <button id="nappi" type="button">Hae</button>
+    <hr/>
+    <div id="yksi"></div>
+    <script>
+        $(()=> {
+            const $lista = $("#lista")
+            const $yksi = $("#yksi")
+            const baseurl = 'http://localhost:3000/api/people'
+            $("#nappi").on('click', ()=> {
+                fetch(baseurl)
+                .then(response=>response.json())
+                .then(data => {
+                    for (let hlo of data) {
+                        $lista.append($('<li>').text(`${hlo.name}`))
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

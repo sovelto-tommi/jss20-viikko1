@@ -1,0 +1,21 @@
+{
+  "name": "henkilopalvelin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "palvelin.js",
+  "scripts": {
+    "start": "nodemon palvelin.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Tommi",
+  "license": "ECL-2.0",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "debug": "^4.1.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.2",
+    "uuid": "^3.4.0"
+  }
+}
